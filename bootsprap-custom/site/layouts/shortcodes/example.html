@@ -1,0 +1,28 @@
+{{- /*
+  Usage: `example [args]`
+
+  `args` are optional and can be one of the following:
+    id: the `div`'s id - default: ""
+    class: any extra class(es) to be added to the `div` - default ""
+    show_preview: if the preview should be output in the HTML - default: `true`
+    show_markup: if the markup should be output in the HTML - default: `true`
+*/ -}}
+
+{{- $show_preview := .Get "show_preview" | default true -}}
+{{- $show_markup := .Get "show_markup" | default true -}}
+{{- $input := .Inner -}}
+
+<div class="SDD-example">
+  {{- if eq $show_preview true -}}
+  <div{{ with .Get "id" }} id="{{ . }}"{{ end }} class="SDD-example-preview{{ with .Get "class" }} {{ . }}{{ end }}">
+    {{- $input -}}
+  </div>
+  {{- end -}}
+
+  {{- if eq $show_markup true -}}
+    <div class="SDD-example-code">
+      {{- $.Scratch.Set "highlight_content" $input -}}
+      {{- highlight (trim ($.Scratch.Get "highlight_content") "\n") "html" "" -}}
+    </div>
+  {{- end -}}
+</div>

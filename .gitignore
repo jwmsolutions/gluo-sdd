@@ -1,0 +1,21 @@
+bootsprap-custom/node_modules/
+bootsprap-custom/node_modules
+bootsprap-custom/resources/
+bootsprap-custom/resources
+bootsprap-custom/dist/
+bootsprap-custom/dist
+bootsprap-custom/package-lock.json
+
+# OS generated files #
+######################
+__MACOSX
+*/.DS_Store
+.DS_Store
+.DS_Store?
+._*
+*.map
+.Spotlight-V100
+.Trashes
+.sass-cache
+Icon?
+Thumbs.db

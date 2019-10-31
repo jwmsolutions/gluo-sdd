@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {{ partial "head" . }}
+  </head>
+  <body class="SDD-body">
+    <div class="SDD-content">
+      <div class="SDD-sidebar">
+        {{ partial "sidebar" . }}
+      </div>
+      <div class="SDD-toc">
+        {{ if (eq .Page.Params.toc true) }}
+          <div>
+            <p>En esta página</p>
+            <nav class="SDD-toc_nav">
+              {{ .TableOfContents }}
+            </nav>
+          </div>
+        {{ end }}
+      </div>
+      <div class="SDD-main">
+        <h1 class="SDD-main_title" id="content">{{ .Title | markdownify }}</h1>
+        <p class="SDD-main_desc">{{ .Page.Params.Description | markdownify }}</p>
+        {{ .Content }}
+      </div>
+    </div>
+  </body>
+</html>

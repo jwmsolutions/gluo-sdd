@@ -1,0 +1,39 @@
+<nav>
+  {{- $url := split .Permalink "/" -}}
+  {{- $page_slug := index $url (sub (len $url) 2) -}}
+  
+  <ul>
+  {{- range $group := .Site.Data.sidebar -}}
+
+    {{- $link := $group.title -}}
+    {{- $link_slug := $group.slug | urlize -}}
+
+    {{- if $group.pages -}}
+      {{- $link = index $group.pages 0 -}}
+      {{- $link_slug = $link.page.slug | urlize -}}
+    {{- end -}}
+
+    {{- $group_slug := $group.slug | urlize -}}
+    {{- $active_group := eq $.Page.Params.group $group_slug }}
+
+    <li class="{{ if $active_group }} active{{ end }} {{ if $group.pages }} has-children{{ end }}">
+      <a class="title" href="/ux/projects/gluo-sdd/documentacion/{{ $group_slug }}/{{ if $group.pages }}{{ $link_slug }}/{{ end }}">
+        <div>{{ $group.title }}</div>
+      </a>
+
+      {{- if $group.pages }}
+      <ul>
+        {{- range $doc := $group.pages -}}
+          {{- $doc_slug := $doc.page.slug | urlize }}
+          <li{{ if and $active_group (eq $page_slug $doc_slug) }} class="active"{{ end }}>
+            <a href="/ux/projects/gluo-sdd/documentacion/{{ $group_slug }}/{{ $doc_slug }}/">
+              {{- $doc.page.title -}}
+            </a>
+          </li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </li>
+  {{- end }}
+  </ul>
+</nav>
