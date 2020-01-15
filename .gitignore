@@ -6,6 +6,16 @@ bootsprap-custom/dist/
 bootsprap-custom/dist
 bootsprap-custom/package-lock.json
 
+liferayTheme/node_modules/
+liferayTheme/node_modules
+liferayTheme/local/
+liferayTheme/local
+liferayTheme/site/
+liferayTheme/site
+liferayTheme/site-fragments/
+liferayTheme/site-fragments
+liferayTheme/package-lock.json
+
 # OS generated files #
 ######################
 __MACOSX

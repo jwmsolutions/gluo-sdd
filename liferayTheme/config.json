@@ -1,0 +1,34 @@
+{
+	"projectsName": "liferay-theme",
+	"baseUrl": "http://ux.gluo.mx/ux/projects/liferay-theme/",
+	"task": {
+		"develop":{
+			"buildDirectory": "local/",
+			"pugFilesDirectory": "src/site/",
+			"watchPugDirectory":[
+				"src/site/**/**/*.pug"
+			],
+			"utilitiesPugDirectory": [
+				"src/assets/pug/components/**/*.pug",
+				"src/assets/pug/layouts/**/*.pug",
+				"src/assets/pug/partials/**/*.pug"
+			]
+		},
+		"buildFragments":{
+			"buildDirectory": "site-fragments/",
+			"pugFilesDirectory": "src/site-fragments/",
+			"watchPugDirectory":[
+				"src/site/**/**/*.pug"
+			],
+			"utilitiesPugDirectory": [
+				"src/assets/pug/components/**/*.pug",
+				"src/assets/pug/layouts/**/*.pug",
+				"src/assets/pug/partials/**/*.pug"
+			]
+		},
+		"buildSiteHTML":{
+			"buildDirectory": "site/",
+			"pugFilesDirectory": "src/site/"
+		}
+	}
+}
