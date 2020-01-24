@@ -1,3 +1,4 @@
+const gulp = require('gulp');
 const { task, watch, src, dest, series, parallel } = require('gulp');
 const pug = require('gulp-pug');
 const fs = require('fs');
@@ -7,6 +8,21 @@ const fileExtension = require('file-extension');
 const browserSync = require('browser-sync').create();
 const config = require('./config');
 const navigation = require('./navigation');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
+const csso = require('gulp-csso');
+// Set the browser that you want to support
+const AUTOPREFIXER_BROWSERS = [
+	'ie >= 10',
+	'ie_mob >= 10',
+	'ff >= 30',
+	'chrome >= 34',
+	'safari >= 7',
+	'opera >= 23',
+	'ios >= 7',
+	'android >= 4.4',
+	'bb >= 10'
+];
 
 var data = {
 	"base_url": config.baseUrl,
@@ -118,6 +134,34 @@ function _watchDevelop(cb){
 	});
 	cb();
 }
+
+//======================================================================
+//**** Estilos
+//======================================================================
+// Crear una tarea para compilar un main.scss a un solo css y que se quede en site
+gulp.task('styles', function () {
+	return gulp.src('./src/assets/scss/**/*.scss')
+	.pipe(sass({
+		outputStyle: 'nested',
+		precision: 10,
+		includePaths: ['.'],
+		onError: console.error.bind(console, 'Sass error:')
+	}))
+	.pipe(autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+	.pipe(csso())
+	// Cargar un main css con todo en site para nuestras pruebas de sitio completo o el css siempre estará segmentado por modulos?
+	// .pipe(gulp.dest('./dist/assets/css/')) // .pipe(gulp.dest('./src/site/css/'))
+	.pipe(gulp.dest('./src/site-fragments/css/'))
+	.pipe(browserSync.reload({stream: true}));
+});
+
+//======================================================================
+// **** Observador que contendrá las demás tareas a observar
+//======================================================================
+// Include it in default task
+gulp.task('watch', function() {
+	gulp.watch(['./src/scss/**/*.scss'], ['styles'])
+});
 
 exports.develop        = series(_clean, parallel(_buildDevelopHTML), _serverDevelop, _watchDevelop);
 exports.buildFragments = series(_clean, parallel(_buildFragmentsHTML));
